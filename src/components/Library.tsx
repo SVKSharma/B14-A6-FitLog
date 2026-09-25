@@ -1,10 +1,5 @@
 import LibraryContent from './LibraryContent';
-import { Workout } from '@/types/Workout';
-
-const getWorkouts = async (): Promise<Workout[]> => {
-  const response = await fetch('https://api.abcz.workers.dev/api/fitlog');
-  return response.json();
-};
+import { getWorkouts } from '@/lib/workouts';
 
 const Library = async () => {
     const workouts = await getWorkouts();
@@ -12,7 +7,18 @@ const Library = async () => {
     return (
         <section id="library" className="w-full bg-[#111318] text-white py-10">
             <div className="keep-content-center">
-                <LibraryContent workouts={workouts} />
+                {workouts ? (
+                    <LibraryContent workouts={workouts} />
+                ) : (
+                    <div className="rounded-2xl border border-gray-800 bg-[#181a20] p-10 text-center">
+                        <h2 className="text-2xl font-black uppercase tracking-wider">
+                            WORKOUTS UNAVAILABLE
+                        </h2>
+                        <p className="mt-2 text-sm text-gray-400">
+                            We couldn&apos;t load the workout library right now. Please try again shortly.
+                        </p>
+                    </div>
+                )}
             </div>
         </section>
     );
