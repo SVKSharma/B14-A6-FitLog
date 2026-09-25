@@ -26,7 +26,7 @@ export const Navbar = () => {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <FaDumbbell className="text-[#a6e22e] text-2xl -rotate-45" />
-          <span className="font-extrabold text-xl tracking-wider uppercase font-mono">
+          <span className="font-oswald font-extrabold text-xl tracking-wider uppercase">
             FITLOG
           </span>
         </Link>
