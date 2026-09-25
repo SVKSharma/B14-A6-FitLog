@@ -2,12 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaDumbbell, FaBars, FaTimes } from 'react-icons/fa';
+import { WorkoutContext } from '@/context/WorkoutContext';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { todaysWorkoutPlan, savedWorkouts } = useContext(WorkoutContext);
 
   const isMyPlanActive = pathname === '/my-plan';
   const isWorkoutsActive = !isMyPlanActive;
@@ -50,13 +52,13 @@ export const Navbar = () => {
           <Link href="/my-plan" className="flex items-center gap-2 text-gray-300 hover:text-white">
             <span>Plan</span>
             <span className="bg-[#a6e22e] text-black font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
-              0
+              {todaysWorkoutPlan.length}
             </span>
           </Link>
           <Link href="/my-plan" className="flex items-center gap-2 text-gray-300 hover:text-white">
             <span>Saved</span>
             <span className="border border-gray-700 text-gray-300 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
-              0
+              {savedWorkouts.length}
             </span>
           </Link>
         </div>
@@ -93,13 +95,13 @@ export const Navbar = () => {
             <Link href="/my-plan" className="flex items-center gap-2 text-gray-300">
               <span>Plan</span>
               <span className="bg-[#a6e22e] text-black font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
-                0
+                {todaysWorkoutPlan.length}
               </span>
             </Link>
             <Link href="/my-plan" className="flex items-center gap-2 text-gray-300">
               <span>Saved</span>
               <span className="border border-gray-700 text-gray-300 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
-                0
+                {savedWorkouts.length}
               </span>
             </Link>
           </div>
