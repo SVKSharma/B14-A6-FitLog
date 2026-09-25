@@ -4,6 +4,7 @@ import { WorkoutContext } from "@/context/WorkoutContext";
 import { Workout } from "@/types/Workout";
 import Image from "next/image";
 import { FaCalendarPlus, FaBookmark } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 interface WorkoutDetailsProps {
   workout: Workout;

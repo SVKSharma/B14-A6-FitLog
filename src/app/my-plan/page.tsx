@@ -56,7 +56,7 @@ export const MyPlanPage = () => {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
           
           {/* DaisyUI Tabs */}
-          <div role="tablist" className="relative tabs tabs-boxed bg-[#181a20] p-1.5 border border-gray-800/80 rounded-xl overflow-hidden">
+          <div role="tablist" className="relative tabs tabs-boxed bg-[#181a20] p-1.5 border border-gray-800/80 rounded-xl overflow-hidden w-full sm:w-auto">
             <div
               className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-lg bg-[#a6e22e] transition-transform duration-150 ease-linear ${
                 activeTab === 'plan' ? 'translate-x-0' : 'translate-x-full'
@@ -66,7 +66,7 @@ export const MyPlanPage = () => {
             <button
               role="tab"
               onClick={() => setActiveTab('plan')}
-              className={`relative z-10 tab text-xs font-extrabold uppercase transition-colors px-5 py-2 rounded-lg ${
+              className={`relative z-10 tab text-[10px] sm:text-xs font-extrabold uppercase transition-colors px-3 sm:px-5 py-2 rounded-lg w-[calc(50%-0.125rem)] text-center whitespace-nowrap ${
                 activeTab === 'plan' ? 'text-black' : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -76,7 +76,7 @@ export const MyPlanPage = () => {
             <button
               role="tab"
               onClick={() => setActiveTab('saved')}
-              className={`relative z-10 tab text-xs font-extrabold uppercase transition-colors px-5 py-2 rounded-lg ${
+              className={`relative z-10 tab text-[10px] sm:text-xs font-extrabold uppercase transition-colors px-3 sm:px-5 py-2 rounded-lg w-[calc(50%-0.125rem)] text-center whitespace-nowrap ${
                 activeTab === 'saved' ? 'text-black' : 'text-gray-400 hover:text-white'
               }`}
             >
