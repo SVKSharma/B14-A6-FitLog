@@ -3,6 +3,7 @@ import { useContext, useState } from 'react';
 import Link from 'next/link';
 import HorizontalCard from '@/components/HorizontalCard';
 import MyPlanDashboard from '@/components/MyPlanDashboard';
+import SearchBar from '@/components/SearchBar';
 import { WorkoutContext } from '@/context/WorkoutContext';
 import { Workout } from '@/types/Workout';
 
@@ -13,13 +14,25 @@ export const MyPlanPage = () => {
   const [activeTab, setActiveTab] = useState<'plan' | 'saved'>('plan');
   const [sortBy, setSortBy] = useState<'duration' | 'caloriesBurned' | 'rating'>('duration');
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [completedIds, setCompletedIds] = useState<number[]>([]);
 
   // Get active items array based on tab for the MyPlanDashboard.
   const activeList = activeTab === 'plan' ? todaysWorkoutPlan : savedWorkouts;
 
-  // Sort active list
-  const sortedList = [...activeList].sort((a, b) => b[sortBy] - a[sortBy]);
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const filteredList = activeList.filter((workout) => {
+    if (!normalizedQuery) return true;
+
+    return (
+      workout.name.toLowerCase().includes(normalizedQuery) ||
+      workout.muscleGroups.some((group) =>
+        group.toLowerCase().includes(normalizedQuery)
+      )
+    );
+  });
+
+  const sortedList = [...filteredList].sort((a, b) => b[sortBy] - a[sortBy]);
 
   const handleRemove = (id: number) => {
     if (activeTab === 'plan') {
@@ -83,6 +96,12 @@ export const MyPlanPage = () => {
               Saved
             </button>
           </div>
+
+          <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            placeholder="Search plan or tags..."
+          />
 
           {/* Sort Selector */}
           <div className="relative flex items-center gap-2 self-end sm:self-auto whitespace-nowrap">

@@ -1,12 +1,13 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { WorkoutContext } from "@/context/WorkoutContext";
 import { Workout } from "@/types/Workout";
 import Image from "next/image";
 import { FaCalendarPlus, FaBookmark, FaRegBookmark } from "react-icons/fa";
 import ShowErrorToast from "./ShowErrorMsg";
 import ShowSuccessToast from "./ShowSuccessMsg";
+import { showWarningToast } from "./ShowWarningMsg";
 
 interface WorkoutDetailsProps {
   workout: Workout;
@@ -21,6 +22,13 @@ export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
   } = useContext(WorkoutContext);
 
   const isSaved = savedWorkouts.some((item) => item.id === workout.id);
+  const isPlanFull = todaysWorkoutPlan.length >= 5;
+
+  useEffect(() => {
+    if (isPlanFull) {
+      showWarningToast("Today’s plan is full. You can add up to 5 lifts.");
+    }
+  }, [isPlanFull]);
 
   const {
     name,
@@ -38,6 +46,8 @@ export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
   } = workout;
 
   const handleAddToPlan = () => {
+    if (isPlanFull) return;
+
     const alreadyExists = todaysWorkoutPlan.some((item) => item.id === workout.id);
     if (alreadyExists) {
       ShowErrorToast("Already in today’s plan");
@@ -167,13 +177,23 @@ export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
 
             {/* Call To Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <button
-                onClick={()=>handleAddToPlan()}
-                className="flex items-center gap-2 bg-[#a6e22e] text-black font-extrabold text-sm px-6 py-3.5 rounded-xl hover:bg-[#95ce28] transition-colors uppercase tracking-wide cursor-pointer"
+              <span
+                title={isPlanFull ? "Today’s plan is full (maximum 5 lifts)" : undefined}
+                className={isPlanFull ? "cursor-not-allowed" : undefined}
               >
-                <FaCalendarPlus className="text-base" />
-                Add to today&apos;s plan
-              </button>
+                <button
+                  onClick={handleAddToPlan}
+                  disabled={isPlanFull}
+                  className={`flex items-center gap-2 font-extrabold text-sm px-6 py-3.5 rounded-xl transition-colors uppercase tracking-wide ${
+                    isPlanFull
+                      ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                      : "bg-[#a6e22e] text-black hover:bg-[#95ce28] cursor-pointer"
+                  }`}
+                >
+                  <FaCalendarPlus className="text-base" />
+                  Add to today&apos;s plan
+                </button>
+              </span>
 
               <button
                 onClick={() => handleSaveForLater()}
