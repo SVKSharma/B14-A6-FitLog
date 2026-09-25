@@ -1,10 +1,12 @@
 "use client";
+
 import { useContext } from "react";
 import { WorkoutContext } from "@/context/WorkoutContext";
 import { Workout } from "@/types/Workout";
 import Image from "next/image";
-import { FaCalendarPlus, FaBookmark } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { FaCalendarPlus, FaBookmark, FaRegBookmark } from "react-icons/fa";
+import ShowErrorToast from "./ShowErrorMsg";
+import ShowSuccessToast from "./ShowSuccessMsg";
 
 interface WorkoutDetailsProps {
   workout: Workout;
@@ -12,9 +14,13 @@ interface WorkoutDetailsProps {
 
 export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
   const {
+    todaysWorkoutPlan,
     setTodaysWorkoutPlan,
+    savedWorkouts,
     setSavedWorkouts,
   } = useContext(WorkoutContext);
+
+  const isSaved = savedWorkouts.some((item) => item.id === workout.id);
 
   const {
     name,
@@ -32,19 +38,25 @@ export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
   } = workout;
 
   const handleAddToPlan = () => {
-    setTodaysWorkoutPlan((prev) => {
-      const alreadyExists = prev.some((item) => item.id === workout.id);
-      if (alreadyExists) return prev;
-      return [...prev, workout];
-    });
+    const alreadyExists = todaysWorkoutPlan.some((item) => item.id === workout.id);
+    if (alreadyExists) {
+      ShowErrorToast("Already in today’s plan");
+      return;
+    }
+
+    setTodaysWorkoutPlan((prev) => [...prev, workout]);
+    ShowSuccessToast("Added to today’s plan");
   };
 
   const handleSaveForLater = () => {
-    setSavedWorkouts((prev) => {
-      const alreadyExists = prev.some((item) => item.id === workout.id);
-      if (alreadyExists) return prev;
-      return [...prev, workout];
-    });
+    const alreadyExists = savedWorkouts.some((item) => item.id === workout.id);
+    if (alreadyExists) {
+      ShowErrorToast("Already saved for later");
+      return;
+    }
+
+    setSavedWorkouts((prev) => [...prev, workout]);
+    ShowSuccessToast("Saved for later");
   };
 
   return (
@@ -164,11 +176,15 @@ export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
               </button>
 
               <button
-                onClick={()=>handleSaveForLater()}
+                onClick={() => handleSaveForLater()}
                 className="flex items-center gap-2 bg-transparent border border-gray-700 text-gray-200 hover:text-white font-bold text-sm px-6 py-3.5 rounded-xl hover:border-gray-500 transition-colors uppercase tracking-wide cursor-pointer"
               >
-                <FaBookmark className="text-sm" />
-                Save for later
+                {isSaved ? (
+                  <FaBookmark className="text-sm" />
+                ) : (
+                  <FaRegBookmark className="text-sm" />
+                )}
+                {isSaved ? "Saved" : "Save for later"}
               </button>
             </div>
           </div>

@@ -3,6 +3,8 @@ import { Workout } from '@/types/Workout';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaClock, FaFire, FaStar, FaCheck, FaTimes } from 'react-icons/fa';
+import ShowErrorToast from './ShowErrorMsg';
+import ShowSuccessToast from './ShowSuccessMsg';
 
 interface HorizontalCardProps {
   workout: Workout;
@@ -20,11 +22,21 @@ export const HorizontalCard = ({
   const { id, name, image, equipment, duration, caloriesBurned, rating } = workout;
 
   const handleRemove = () => {
-    if (onRemove) onRemove(id);
+    if (onRemove) {
+      onRemove(id);
+      ShowSuccessToast('Workout removed');
+    }
   };
 
   const handleToggle = () => {
-    if (onToggleComplete) onToggleComplete(id);
+    if (onToggleComplete) {
+      onToggleComplete(id);
+      if (isCompleted) {
+        ShowErrorToast('Workout marked as incomplete');
+      } else {
+        ShowSuccessToast('Workout marked as done');
+      }
+    }
   };
 
   return (
