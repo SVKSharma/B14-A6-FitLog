@@ -20,7 +20,7 @@ export const Navbar = () => {
       : 'text-gray-400 hover:text-white';
 
   return (
-    <header className="w-full bg-[#111318] border-b border-gray-800 text-white">
+    <header className="sticky top-0 z-50 w-full bg-[#111318] border-b border-gray-800 text-white">
       <div className="keep-content-center py-3 flex items-center justify-between">
         
         {/* Logo */}
