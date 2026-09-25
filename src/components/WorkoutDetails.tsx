@@ -1,5 +1,6 @@
 "use client";
-
+import { useContext } from "react";
+import { WorkoutContext } from "@/context/WorkoutContext";
 import { Workout } from "@/types/Workout";
 import Image from "next/image";
 import { FaCalendarPlus, FaBookmark } from "react-icons/fa";
@@ -9,6 +10,11 @@ interface WorkoutDetailsProps {
 }
 
 export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
+  const {
+    setTodaysWorkoutPlan,
+    setSavedWorkouts,
+  } = useContext(WorkoutContext);
+
   const {
     name,
     image,
@@ -25,11 +31,19 @@ export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
   } = workout;
 
   const handleAddToPlan = () => {
-    // will write this part later 
+    setTodaysWorkoutPlan((prev) => {
+      const alreadyExists = prev.some((item) => item.id === workout.id);
+      if (alreadyExists) return prev;
+      return [...prev, workout];
+    });
   };
 
   const handleSaveForLater = () => {
-    // will write this in next commit
+    setSavedWorkouts((prev) => {
+      const alreadyExists = prev.some((item) => item.id === workout.id);
+      if (alreadyExists) return prev;
+      return [...prev, workout];
+    });
   };
 
   return (
@@ -141,16 +155,16 @@ export const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
             {/* Call To Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 pt-4">
               <button
-                onClick={handleAddToPlan}
-                className="flex items-center gap-2 bg-[#a6e22e] text-black font-extrabold text-sm px-6 py-3.5 rounded-xl hover:bg-[#95ce28] transition-colors uppercase tracking-wide"
+                onClick={()=>handleAddToPlan()}
+                className="flex items-center gap-2 bg-[#a6e22e] text-black font-extrabold text-sm px-6 py-3.5 rounded-xl hover:bg-[#95ce28] transition-colors uppercase tracking-wide cursor-pointer"
               >
                 <FaCalendarPlus className="text-base" />
                 Add to today&apos;s plan
               </button>
 
               <button
-                onClick={handleSaveForLater}
-                className="flex items-center gap-2 bg-transparent border border-gray-700 text-gray-200 hover:text-white font-bold text-sm px-6 py-3.5 rounded-xl hover:border-gray-500 transition-colors uppercase tracking-wide"
+                onClick={()=>handleSaveForLater()}
+                className="flex items-center gap-2 bg-transparent border border-gray-700 text-gray-200 hover:text-white font-bold text-sm px-6 py-3.5 rounded-xl hover:border-gray-500 transition-colors uppercase tracking-wide cursor-pointer"
               >
                 <FaBookmark className="text-sm" />
                 Save for later
