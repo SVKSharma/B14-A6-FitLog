@@ -32,16 +32,22 @@ export const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex bg-[#1a1d24] p-1 rounded-full border border-gray-800">
+        <nav className="relative hidden md:flex bg-[#1a1d24] p-1 rounded-full border border-gray-800 overflow-hidden">
+          <span
+            aria-hidden="true"
+            className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-[#22281b] transition-transform duration-300 ease-out ${
+              isWorkoutsActive ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          />
           <Link
             href="/"
-            className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all ${getTabClass(isWorkoutsActive)}`}
+            className={`relative z-10 px-5 py-1.5 rounded-full text-sm font-semibold transition-colors duration-300 ${getTabClass(isWorkoutsActive)}`}
           >
             Workouts
           </Link>
           <Link
             href="/my-plan"
-            className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all ${getTabClass(isMyPlanActive)}`}
+            className={`relative z-10 px-5 py-1.5 rounded-full text-sm font-semibold transition-colors duration-300 ${getTabClass(isMyPlanActive)}`}
           >
             My Plan
           </Link>
@@ -76,16 +82,22 @@ export const Navbar = () => {
       {/* Mobile Navigation Drawer */}
       {isOpen && (
         <div className="md:hidden border-t border-gray-800 bg-[#111318] p-4 space-y-4">
-          <nav className="flex bg-[#1a1d24] p-1 rounded-xl border border-gray-800">
+          <nav className="relative flex bg-[#1a1d24] p-1 rounded-xl border border-gray-800 overflow-hidden">
+            <span
+              aria-hidden="true"
+              className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-lg bg-[#22281b] transition-transform duration-300 ease-out ${
+                isWorkoutsActive ? 'translate-x-0' : 'translate-x-full'
+              }`}
+            />
             <Link
               href="/"
-              className={`flex-1 py-2 rounded-lg text-sm font-semibold text-center transition-all ${getTabClass(isWorkoutsActive)}`}
+              className={`relative z-10 flex-1 py-2 rounded-lg text-sm font-semibold text-center transition-colors duration-300 ${getTabClass(isWorkoutsActive)}`}
             >
               Workouts
             </Link>
             <Link
               href="/my-plan"
-              className={`flex-1 py-2 rounded-lg text-sm font-semibold text-center transition-all ${getTabClass(isMyPlanActive)}`}
+              className={`relative z-10 flex-1 py-2 rounded-lg text-sm font-semibold text-center transition-colors duration-300 ${getTabClass(isMyPlanActive)}`}
             >
               My Plan
             </Link>
