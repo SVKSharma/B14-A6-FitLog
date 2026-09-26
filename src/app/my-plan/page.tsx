@@ -6,6 +6,7 @@ import MyPlanDashboard from '@/components/MyPlanDashboard';
 import SearchBar from '@/components/SearchBar';
 import { WorkoutContext } from '@/context/WorkoutContext';
 import { Workout } from '@/types/Workout';
+import { triggerSuccessConfetti } from '@/lib/confetti';
 
 export const MyPlanPage = () => {
   const { todaysWorkoutPlan, setTodaysWorkoutPlan, savedWorkouts, setSavedWorkouts } =
@@ -43,9 +44,14 @@ export const MyPlanPage = () => {
   };
 
   const handleToggleComplete = (id: number) => {
-    setCompletedIds((prev) =>
-      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
-    );
+    setCompletedIds((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((itemId) => itemId !== id);
+      }
+
+      triggerSuccessConfetti();
+      return [...prev, id];
+    });
   };
 
   return (
