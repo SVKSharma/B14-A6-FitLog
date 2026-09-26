@@ -4,6 +4,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 
 const TODAYS_PLAN_STORAGE_KEY = 'fit-log:todays-workout-plan';
 const SAVED_WORKOUTS_STORAGE_KEY = 'fit-log:saved-workouts';
+const COMPLETED_WORKOUTS_STORAGE_KEY = 'fit-log:completed-workouts';
 
 const readWorkouts = (key: string): Workout[] => {
   try {
@@ -25,11 +26,26 @@ const readWorkouts = (key: string): Workout[] => {
   }
 };
 
+const readCompletedIds = (): number[] => {
+  try {
+    const storedValue = window.localStorage.getItem(COMPLETED_WORKOUTS_STORAGE_KEY);
+    const parsedValue: unknown = storedValue ? JSON.parse(storedValue) : [];
+
+    return Array.isArray(parsedValue)
+      ? parsedValue.filter((id): id is number => Number.isSafeInteger(id) && id > 0)
+      : [];
+  } catch {
+    return [];
+  }
+};
+
 interface WorkoutContextType {
   todaysWorkoutPlan: Workout[];
   setTodaysWorkoutPlan: React.Dispatch<React.SetStateAction<Workout[]>>;
   savedWorkouts: Workout[];
   setSavedWorkouts: React.Dispatch<React.SetStateAction<Workout[]>>;
+  completedWorkoutIds: number[];
+  setCompletedWorkoutIds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 export const WorkoutContext = createContext<WorkoutContextType>({
@@ -37,17 +53,21 @@ export const WorkoutContext = createContext<WorkoutContextType>({
   setTodaysWorkoutPlan: () => {},
   savedWorkouts: [],
   setSavedWorkouts: () => {},
+  completedWorkoutIds: [],
+  setCompletedWorkoutIds: () => {},
 });
 
 export const WorkoutContextProvider = ({ children }: { children: ReactNode }) => {
   const [todaysWorkoutPlan, setTodaysWorkoutPlan] = useState<Workout[]>([]);
   const [savedWorkouts, setSavedWorkouts] = useState<Workout[]>([]);
+  const [completedWorkoutIds, setCompletedWorkoutIds] = useState<number[]>([]);
   const [hasLoadedStoredWorkouts, setHasLoadedStoredWorkouts] = useState(false);
 
   useEffect(() => {
     const restoreStoredWorkouts = window.setTimeout(() => {
       setTodaysWorkoutPlan(readWorkouts(TODAYS_PLAN_STORAGE_KEY));
       setSavedWorkouts(readWorkouts(SAVED_WORKOUTS_STORAGE_KEY));
+      setCompletedWorkoutIds(readCompletedIds());
       setHasLoadedStoredWorkouts(true);
     }, 0);
 
@@ -65,13 +85,19 @@ export const WorkoutContextProvider = ({ children }: { children: ReactNode }) =>
       SAVED_WORKOUTS_STORAGE_KEY,
       JSON.stringify(savedWorkouts),
     );
-  }, [hasLoadedStoredWorkouts, todaysWorkoutPlan, savedWorkouts]);
+    window.localStorage.setItem(
+      COMPLETED_WORKOUTS_STORAGE_KEY,
+      JSON.stringify(completedWorkoutIds),
+    );
+  }, [hasLoadedStoredWorkouts, todaysWorkoutPlan, savedWorkouts, completedWorkoutIds]);
 
   const sharedWorkoutContext = {
     todaysWorkoutPlan,
     setTodaysWorkoutPlan,
     savedWorkouts,
     setSavedWorkouts,
+    completedWorkoutIds,
+    setCompletedWorkoutIds,
   };
 
   return (
