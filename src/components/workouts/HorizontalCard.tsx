@@ -3,8 +3,8 @@ import { Workout } from '@/types/Workout';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaClock, FaFire, FaStar, FaCheck, FaTimes } from 'react-icons/fa';
-import ShowErrorToast from './ShowErrorMsg';
-import ShowSuccessToast from './ShowSuccessMsg';
+import ShowErrorToast from '../feedback/ShowErrorMsg';
+import ShowSuccessToast from '../feedback/ShowSuccessMsg';
 import { ROUTES } from '@/lib/routes';
 
 interface HorizontalCardProps {

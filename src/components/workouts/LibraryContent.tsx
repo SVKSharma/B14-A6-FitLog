@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import SearchBar from './SearchBar';
+import SearchBar from '../ui/SearchBar';
 import VerticalCard from './VerticalCard';
 import { Workout } from '@/types/Workout';
 

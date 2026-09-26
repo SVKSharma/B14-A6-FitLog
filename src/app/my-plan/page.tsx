@@ -1,9 +1,9 @@
 'use client';
 import { useContext, useState } from 'react';
 import Link from 'next/link';
-import HorizontalCard from '@/components/HorizontalCard';
-import MyPlanDashboard from '@/components/MyPlanDashboard';
-import SearchBar from '@/components/SearchBar';
+import HorizontalCard from '@/components/workouts/HorizontalCard';
+import MyPlanDashboard from '@/components/my-plan/MyPlanDashboard';
+import SearchBar from '@/components/ui/SearchBar';
 import { WorkoutContext } from '@/context/WorkoutContext';
 import { Workout } from '@/types/Workout';
 import { triggerSuccessConfetti } from '@/lib/confetti';

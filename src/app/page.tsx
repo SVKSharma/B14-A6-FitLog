@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Hero from "@/components/Hero";
-import Library from "@/components/Library";
+import Hero from "@/components/layout/Hero";
+import Library from "@/components/workouts/Library";
 
 export const metadata: Metadata = {
   title: 'Workout Library',
