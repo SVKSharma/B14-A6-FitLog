@@ -49,7 +49,7 @@ export const getWorkouts = async (): Promise<Workout[] | null> => {
 export const getWorkout = async (id: number): Promise<Workout | null> => {
   try {
     const data = await getJson(`${WORKOUTS_API_URL}/${id}`);
-    return isWorkout(data) ? data : null;
+    return isWorkout(data) && data.id === id ? data : null;
   } catch (error) {
     console.error(`Unable to load workout ${id}:`, error);
     return null;
