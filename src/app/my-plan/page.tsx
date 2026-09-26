@@ -6,16 +6,22 @@ import MyPlanDashboard from '@/components/MyPlanDashboard';
 import SearchBar from '@/components/SearchBar';
 import { WorkoutContext } from '@/context/WorkoutContext';
 import { Workout } from '@/types/Workout';
+import { triggerSuccessConfetti } from '@/lib/confetti';
 
 export const MyPlanPage = () => {
-  const { todaysWorkoutPlan, setTodaysWorkoutPlan, savedWorkouts, setSavedWorkouts } =
-    useContext(WorkoutContext);
+  const {
+    todaysWorkoutPlan,
+    setTodaysWorkoutPlan,
+    savedWorkouts,
+    setSavedWorkouts,
+    completedWorkoutIds,
+    setCompletedWorkoutIds,
+  } = useContext(WorkoutContext);
 
   const [activeTab, setActiveTab] = useState<'plan' | 'saved'>('plan');
   const [sortBy, setSortBy] = useState<'duration' | 'caloriesBurned' | 'rating'>('duration');
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [completedIds, setCompletedIds] = useState<number[]>([]);
 
   // Get active items array based on tab for the MyPlanDashboard.
   const activeList = activeTab === 'plan' ? todaysWorkoutPlan : savedWorkouts;
@@ -40,12 +46,18 @@ export const MyPlanPage = () => {
     } else {
       setSavedWorkouts((prev) => prev.filter((item) => item.id !== id));
     }
+    setCompletedWorkoutIds((prev) => prev.filter((itemId) => itemId !== id));
   };
 
   const handleToggleComplete = (id: number) => {
-    setCompletedIds((prev) =>
-      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
-    );
+    setCompletedWorkoutIds((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((itemId) => itemId !== id);
+      }
+
+      triggerSuccessConfetti();
+      return [...prev, id];
+    });
   };
 
   return (
@@ -179,7 +191,7 @@ export const MyPlanPage = () => {
                 workout={workout}
                 onRemove={handleRemove}
                 onToggleComplete={handleToggleComplete}
-                isCompleted={completedIds.includes(workout.id)}
+                isCompleted={completedWorkoutIds.includes(workout.id)}
               />
             ))}
           </div>
