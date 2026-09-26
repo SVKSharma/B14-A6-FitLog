@@ -11,7 +11,7 @@
 
 Pick a lift, lock it into today&apos;s plan, and watch the work add up.
 
-**Live Demo:** [Open FitLog](https://b14-a6-fitlog-svk.vercel.app/)
+**Live Demo:** <a href="https://b14-a6-fitlog-svk.vercel.app/" target="_blank" rel="noopener noreferrer">Open FitLog</a>
 
 </div>
 
