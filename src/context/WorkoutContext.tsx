@@ -11,7 +11,15 @@ const readWorkouts = (key: string): Workout[] => {
     if (!storedValue) return [];
 
     const parsedValue: unknown = JSON.parse(storedValue);
-    return Array.isArray(parsedValue) ? (parsedValue as Workout[]) : [];
+    if (!Array.isArray(parsedValue)) return [];
+
+    return parsedValue.flatMap((value) => {
+      if (!value || typeof value !== 'object') return [];
+
+      const workout = value as Workout & { id: number | string };
+      const id = Number(workout.id);
+      return Number.isSafeInteger(id) && id > 0 ? [{ ...workout, id }] : [];
+    });
   } catch {
     return [];
   }

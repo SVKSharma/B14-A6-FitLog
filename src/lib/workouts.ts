@@ -2,6 +2,11 @@ import { Workout } from '@/types/Workout';
 
 const WORKOUTS_API_URL = 'https://api.abcz.workers.dev/api/fitlog';
 
+export const parseWorkoutId = (value: string): number | null => {
+  const id = Number(value);
+  return Number.isSafeInteger(id) && id > 0 ? id : null;
+};
+
 const isWorkout = (value: unknown): value is Workout => {
   if (!value || typeof value !== 'object') return false;
 
@@ -41,9 +46,9 @@ export const getWorkouts = async (): Promise<Workout[] | null> => {
   }
 };
 
-export const getWorkout = async (id: string): Promise<Workout | null> => {
+export const getWorkout = async (id: number): Promise<Workout | null> => {
   try {
-    const data = await getJson(`${WORKOUTS_API_URL}/${encodeURIComponent(id)}`);
+    const data = await getJson(`${WORKOUTS_API_URL}/${id}`);
     return isWorkout(data) ? data : null;
   } catch (error) {
     console.error(`Unable to load workout ${id}:`, error);
