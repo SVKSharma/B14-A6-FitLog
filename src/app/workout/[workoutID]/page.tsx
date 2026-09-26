@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import WorkoutDetails from '@/components/WorkoutDetails';
+import WorkoutDetails from '@/components/workouts/WorkoutDetails';
 import { getWorkout, parseWorkoutId } from '@/lib/workouts';
 import { notFound } from 'next/navigation';
 

@@ -1,12 +1,23 @@
 'use client';
 import { useContext, useState } from 'react';
 import Link from 'next/link';
-import HorizontalCard from '@/components/HorizontalCard';
-import MyPlanDashboard from '@/components/MyPlanDashboard';
-import SearchBar from '@/components/SearchBar';
+import HorizontalCard from '@/components/workouts/HorizontalCard';
+import MyPlanDashboard from '@/components/my-plan/MyPlanDashboard';
+import SearchBar from '@/components/ui/SearchBar';
 import { WorkoutContext } from '@/context/WorkoutContext';
 import { Workout } from '@/types/Workout';
 import { triggerSuccessConfetti } from '@/lib/confetti';
+import { ROUTES } from '@/lib/routes';
+
+type SortField = 'duration' | 'caloriesBurned' | 'rating' | 'status';
+type SortDirection = 'ascending' | 'descending';
+
+const sortOptions: { value: SortField; label: string }[] = [
+  { value: 'duration', label: 'Duration' },
+  { value: 'caloriesBurned', label: 'Calories' },
+  { value: 'rating', label: 'Rating' },
+  { value: 'status', label: 'Status' },
+];
 
 export const MyPlanPage = () => {
   const {
@@ -19,7 +30,8 @@ export const MyPlanPage = () => {
   } = useContext(WorkoutContext);
 
   const [activeTab, setActiveTab] = useState<'plan' | 'saved'>('plan');
-  const [sortBy, setSortBy] = useState<'duration' | 'caloriesBurned' | 'rating'>('duration');
+  const [sortBy, setSortBy] = useState<SortField>('duration');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('descending');
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -38,7 +50,17 @@ export const MyPlanPage = () => {
     );
   });
 
-  const sortedList = [...filteredList].sort((a, b) => b[sortBy] - a[sortBy]);
+  const sortedList = [...filteredList].sort((a, b) => {
+    if (sortBy === 'status') {
+      const aCompleted = completedWorkoutIds.includes(a.id);
+      const bCompleted = completedWorkoutIds.includes(b.id);
+      const statusComparison = Number(aCompleted) - Number(bCompleted);
+      return sortDirection === 'ascending' ? statusComparison : -statusComparison;
+    }
+
+    const comparison = b[sortBy] - a[sortBy];
+    return sortDirection === 'ascending' ? -comparison : comparison;
+  });
 
   const handleRemove = (id: number) => {
     if (activeTab === 'plan') {
@@ -126,39 +148,63 @@ export const MyPlanPage = () => {
                 onClick={() => setIsSortMenuOpen((prev) => !prev)}
                 className="flex items-center gap-2 bg-[#181a20] border border-gray-800 text-gray-200 text-xs rounded-lg px-3 py-2 focus:outline-none"
               >
-                <span className="capitalize">
-                  {sortBy === 'duration'
-                    ? 'Duration'
-                    : sortBy === 'caloriesBurned'
-                      ? 'Calories'
-                      : 'Rating'}
+                <span>
+                  {sortBy === 'status'
+                    ? sortDirection === 'ascending'
+                      ? 'Pending first'
+                      : 'Done first'
+                    : `${sortOptions.find((option) => option.value === sortBy)?.label} ${
+                        sortDirection === 'ascending' ? '↑' : '↓'
+                      }`}
                 </span>
                 <span className="text-xs">▾</span>
               </button>
 
               {isSortMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 z-20 w-36 rounded-lg border border-gray-800 bg-[#181a20] shadow-lg overflow-hidden">
-                  {[
-                    { value: 'duration', label: 'Duration' },
-                    { value: 'caloriesBurned', label: 'Calories' },
-                    { value: 'rating', label: 'Rating' },
-                  ].map((option) => (
+                <div className="absolute right-0 top-full mt-2 z-20 w-56 rounded-lg border border-gray-800 bg-[#181a20] shadow-lg overflow-hidden">
+                  {sortOptions.map((option) => (
                     <button
                       key={option.value}
                       type="button"
                       onClick={() => {
-                        setSortBy(option.value as 'duration' | 'caloriesBurned' | 'rating');
+                        setSortBy(option.value);
                         setIsSortMenuOpen(false);
                       }}
                       className={`block w-full text-left px-3 py-2 text-xs transition-colors ${
                         sortBy === option.value
                           ? 'bg-[#a6e22e] text-black font-bold'
-                          : 'text-gray-200 hover:bg-[#21242d]'
+                          : 'text-gray-300 hover:bg-[#22281b] hover:text-white hover:font-bold'
                       }`}
                     >
                       {option.label}
                     </button>
                   ))}
+                  <div className="flex border-t border-gray-800 p-1">
+                    <button
+                      type="button"
+                      onClick={() => setSortDirection('ascending')}
+                      title="Sort from lowest to highest"
+                      className={`flex-1 whitespace-nowrap rounded-md px-2 py-2 text-xs font-bold transition-colors ${
+                        sortDirection === 'ascending'
+                          ? 'bg-[#a6e22e] text-black'
+                          : 'text-gray-400 hover:bg-[#21242d] hover:text-white'
+                      }`}
+                    >
+                      Ascending ↑
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSortDirection('descending')}
+                      title="Sort from highest to lowest"
+                      className={`flex-1 whitespace-nowrap rounded-md px-2 py-2 text-xs font-bold transition-colors ${
+                        sortDirection === 'descending'
+                          ? 'bg-[#a6e22e] text-black'
+                          : 'text-gray-400 hover:bg-[#21242d] hover:text-white'
+                      }`}
+                    >
+                      Descending ↓
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -176,7 +222,7 @@ export const MyPlanPage = () => {
             </p>
             <div>
               <Link
-                href="/#library"
+                href={ROUTES.library}
                 className="inline-block bg-[#a6e22e] text-black font-extrabold text-xs px-6 py-3 rounded-lg hover:bg-[#95ce28] transition-colors uppercase tracking-wider"
               >
                 Go to workouts

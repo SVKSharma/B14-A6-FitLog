@@ -3,8 +3,9 @@ import { Workout } from '@/types/Workout';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaClock, FaFire, FaStar, FaCheck, FaTimes } from 'react-icons/fa';
-import ShowErrorToast from './ShowErrorMsg';
-import ShowSuccessToast from './ShowSuccessMsg';
+import ShowErrorToast from '../feedback/ShowErrorMsg';
+import ShowSuccessToast from '../feedback/ShowSuccessMsg';
+import { ROUTES } from '@/lib/routes';
 
 interface HorizontalCardProps {
   workout: Workout;
@@ -85,7 +86,7 @@ export const HorizontalCard = ({
       {/* Right Action Buttons */}
       <div className="flex items-center gap-2.5 sm:gap-3 w-full sm:w-auto justify-end border-t sm:border-t-0 border-gray-800/60 pt-3 sm:pt-0">
         <Link
-          href={`/workout/${id}`}
+          href={ROUTES.workout(id)}
           className="bg-[#21242d] hover:bg-[#2a2e3a] text-gray-200 text-xs font-bold px-4 py-2.5 rounded-lg border border-gray-700/60 transition-colors uppercase tracking-wider"
         >
           View Details

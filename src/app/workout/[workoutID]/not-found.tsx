@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FaArrowLeft, FaDumbbell } from 'react-icons/fa';
+import { ROUTES } from '@/lib/routes';
 
 export default function WorkoutNotFound() {
   return (
@@ -22,7 +23,7 @@ export default function WorkoutNotFound() {
         </div>
 
         <Link
-          href="/#library"
+          href={ROUTES.library}
           className="inline-flex items-center gap-2 rounded-xl bg-[#a6e22e] px-6 py-3.5 text-xs font-extrabold uppercase tracking-wider text-black transition-colors hover:bg-[#95ce28]"
         >
           <FaArrowLeft className="text-xs" />

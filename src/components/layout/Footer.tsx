@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FaDumbbell } from 'react-icons/fa';
+import { ROUTES } from '@/lib/routes';
 
 export const Footer = () => {
   return (
@@ -7,7 +8,7 @@ export const Footer = () => {
       <div className="keep-content-center flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2 group text-white">
+        <Link href={ROUTES.home} className="flex items-center gap-2 group text-white">
           <FaDumbbell className="text-[#a6e22e] text-lg transform -rotate-45" />
           <span className="font-oswald font-extrabold tracking-wider uppercase">
             FITLOG

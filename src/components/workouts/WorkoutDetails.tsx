@@ -5,9 +5,9 @@ import { WorkoutContext } from "@/context/WorkoutContext";
 import { Workout } from "@/types/Workout";
 import Image from "next/image";
 import { FaCalendarPlus, FaBookmark, FaRegBookmark } from "react-icons/fa";
-import ShowErrorToast from "./ShowErrorMsg";
-import ShowSuccessToast from "./ShowSuccessMsg";
-import { showWarningToast } from "./ShowWarningMsg";
+import ShowErrorToast from "../feedback/ShowErrorMsg";
+import ShowSuccessToast from "../feedback/ShowSuccessMsg";
+import { showWarningToast } from "../feedback/ShowWarningMsg";
 
 interface WorkoutDetailsProps {
   workout: Workout;
