@@ -173,7 +173,7 @@ export const MyPlanPage = () => {
                       className={`block w-full text-left px-3 py-2 text-xs transition-colors ${
                         sortBy === option.value
                           ? 'bg-[#a6e22e] text-black font-bold'
-                          : 'text-gray-200 hover:bg-[#21242d]'
+                          : 'text-gray-300 hover:bg-[#22281b] hover:text-white hover:font-bold'
                       }`}
                     >
                       {option.label}
