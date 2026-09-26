@@ -7,6 +7,7 @@ import SearchBar from '@/components/SearchBar';
 import { WorkoutContext } from '@/context/WorkoutContext';
 import { Workout } from '@/types/Workout';
 import { triggerSuccessConfetti } from '@/lib/confetti';
+import { ROUTES } from '@/lib/routes';
 
 export const MyPlanPage = () => {
   const {
@@ -176,7 +177,7 @@ export const MyPlanPage = () => {
             </p>
             <div>
               <Link
-                href="/#library"
+                href={ROUTES.library}
                 className="inline-block bg-[#a6e22e] text-black font-extrabold text-xs px-6 py-3 rounded-lg hover:bg-[#95ce28] transition-colors uppercase tracking-wider"
               >
                 Go to workouts

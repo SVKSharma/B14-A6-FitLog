@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FaDumbbell, FaArrowLeft } from 'react-icons/fa';
+import { ROUTES } from '@/lib/routes';
 
 export const NotFound = () => {
   return (
@@ -30,7 +31,7 @@ export const NotFound = () => {
         {/* Action Controls */}
         <div className="pt-2">
           <Link
-            href="/"
+            href={ROUTES.home}
             className="inline-flex items-center gap-2 bg-[#a6e22e] text-black font-extrabold text-xs px-6 py-3.5 rounded-xl hover:bg-[#95ce28] transition-colors uppercase tracking-wider shadow-lg"
           >
             <FaArrowLeft className="text-xs" />

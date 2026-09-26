@@ -2,6 +2,7 @@ import { Workout } from "@/types/Workout";
 import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaFire, FaStar } from "react-icons/fa";
+import { ROUTES } from '@/lib/routes';
 
 interface VerticalCardProps {
   workout: Workout;
@@ -21,7 +22,7 @@ export const VerticalCard = ({ workout }: VerticalCardProps) => {
 
   return (
     <Link
-      href={`/workout/${id}`}
+      href={ROUTES.workout(id)}
       className="group bg-[#181a20] border border-gray-800/80 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-gray-700 transition-all duration-200"
     >
       <div>

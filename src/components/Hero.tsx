@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FaArrowDown } from 'react-icons/fa';
 import bannerImg from '@/assets/banner.png'; 
+import { ROUTES } from '@/lib/routes';
 
 export const Hero = () => {
   return (
@@ -26,7 +27,7 @@ export const Hero = () => {
 
             <div className="pt-3">
               <a
-                href="#library"
+                href={ROUTES.library}
                 className="inline-flex items-center gap-2 bg-[#a6e22e] text-black font-extrabold text-xs sm:text-sm px-5 py-3 rounded-md hover:bg-[#95ce28] transition-colors uppercase tracking-wide"
               >
                 BROWSE WORKOUTS

@@ -5,13 +5,14 @@ import { usePathname } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { FaDumbbell, FaBars, FaTimes } from 'react-icons/fa';
 import { WorkoutContext } from '@/context/WorkoutContext';
+import { ROUTES } from '@/lib/routes';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { todaysWorkoutPlan, savedWorkouts } = useContext(WorkoutContext);
 
-  const isMyPlanActive = pathname === '/my-plan';
+  const isMyPlanActive = pathname === ROUTES.myPlan;
   const isWorkoutsActive = !isMyPlanActive;
 
   const getTabClass = (isActive: boolean) =>
@@ -24,7 +25,7 @@ export const Navbar = () => {
       <div className="keep-content-center py-3 flex items-center justify-between">
         
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href={ROUTES.home} className="flex items-center gap-2">
           <FaDumbbell className="text-[#a6e22e] text-2xl -rotate-45" />
           <span className="font-oswald font-extrabold text-xl tracking-wider uppercase text-[#a6e22e]">
             <span className="text-white">FIT</span>LOG
@@ -40,13 +41,13 @@ export const Navbar = () => {
             }`}
           />
           <Link
-            href="/"
+            href={ROUTES.home}
             className={`relative z-10 px-5 py-1.5 rounded-full text-sm font-semibold transition-colors duration-300 ${getTabClass(isWorkoutsActive)}`}
           >
             Workouts
           </Link>
           <Link
-            href="/my-plan"
+            href={ROUTES.myPlan}
             className={`relative z-10 px-5 py-1.5 rounded-full text-sm font-semibold transition-colors duration-300 ${getTabClass(isMyPlanActive)}`}
           >
             My Plan
@@ -55,13 +56,13 @@ export const Navbar = () => {
 
         {/* Desktop Counters */}
         <div className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <Link href="/my-plan" className="flex items-center gap-2 text-gray-300 hover:text-white">
+          <Link href={ROUTES.myPlan} className="flex items-center gap-2 text-gray-300 hover:text-white">
             <span>Plan</span>
             <span className="bg-[#a6e22e] text-black font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
               {todaysWorkoutPlan.length}
             </span>
           </Link>
-          <Link href="/my-plan" className="flex items-center gap-2 text-gray-300 hover:text-white">
+          <Link href={ROUTES.myPlan} className="flex items-center gap-2 text-gray-300 hover:text-white">
             <span>Saved</span>
             <span className="border border-gray-700 text-gray-300 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
               {savedWorkouts.length}
@@ -90,13 +91,13 @@ export const Navbar = () => {
               }`}
             />
             <Link
-              href="/"
+              href={ROUTES.home}
               className={`relative z-10 flex-1 py-2 rounded-lg text-sm font-semibold text-center transition-colors duration-300 ${getTabClass(isWorkoutsActive)}`}
             >
               Workouts
             </Link>
             <Link
-              href="/my-plan"
+              href={ROUTES.myPlan}
               className={`relative z-10 flex-1 py-2 rounded-lg text-sm font-semibold text-center transition-colors duration-300 ${getTabClass(isMyPlanActive)}`}
             >
               My Plan
@@ -104,13 +105,13 @@ export const Navbar = () => {
           </nav>
 
           <div className="flex justify-around pt-2 border-t border-gray-800/60 text-sm">
-            <Link href="/my-plan" className="flex items-center gap-2 text-gray-300">
+            <Link href={ROUTES.myPlan} className="flex items-center gap-2 text-gray-300">
               <span>Plan</span>
               <span className="bg-[#a6e22e] text-black font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
                 {todaysWorkoutPlan.length}
               </span>
             </Link>
-            <Link href="/my-plan" className="flex items-center gap-2 text-gray-300">
+            <Link href={ROUTES.myPlan} className="flex items-center gap-2 text-gray-300">
               <span>Saved</span>
               <span className="border border-gray-700 text-gray-300 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
                 {savedWorkouts.length}
