@@ -2,26 +2,26 @@
 
 <h1 style="font-size: 3rem; font-weight: 800; color: #ffffff;">
 	<img src="./src/app/favicon.ico" alt="FitLog icon" width="52" style="vertical-align: middle;" />
-	FIT<span style="color: #a6e22e">LOG</span>
+	FIT<font color="#a6e22e">LOG</font>
 </h1>
 
-<h3 style="font-size: 1.1rem; font-weight: 700; color: #a6e22e;">B14-A06 · Workout Library</h3>
+<h3 style="font-size: 1.1rem; font-weight: 700;"><font color="#a6e22e">B14-A06 · Workout Library</font></h3>
 
 <h2 style="font-size: 1.8rem; font-weight: 800; color: #ffffff;">Train With Intent. Log Every Set.</h2>
 
 Pick a lift, lock it into today&apos;s plan, and watch the work add up.
 
-**Live Demo:** [Insert Live Link Here]
+**Live Demo:** <a href="https://b14-a6-fitlog-svk.vercel.app/" target="_blank" rel="noopener noreferrer">Open FitLog</a>
 
 </div>
 
 ---
 
-<h2 style="font-size: 1.5rem; font-weight: 800; color: #a6e22e;">About FitLog</h2>
+<h2 style="font-size: 1.5rem; font-weight: 800;"><font color="#a6e22e">About FitLog</font></h2>
 
 FitLog is a modern, dark-themed responsive workout tracking application designed to help users organize their fitness routines. Built with the Next.js App Router, TypeScript, and Tailwind CSS, FitLog delivers a fast, interactive experience for discovering exercises, managing daily workout limits, and tracking completed lifts. It operates as a no-nonsense gym companion: pick a lift, lock it into today&apos;s plan, and watch the work add up.
 
-<h2 style="font-size: 1.5rem; font-weight: 800; color: #a6e22e;">🌟 Key Features</h2>
+<h2 style="font-size: 1.5rem; font-weight: 800;"><font color="#a6e22e">🌟 Key Features</font></h2>
 
 - **Interactive Accomplishments:** Clicking "Mark as Done" triggers a custom canvas-confetti burst to reward completed lifts.
 - **State Persistence:** Local storage integration retains your "Today&apos;s Plan" and "Saved" workouts across browser reloads and sessions.
@@ -33,7 +33,7 @@ FitLog is a modern, dark-themed responsive workout tracking application designed
 - **Robust Error Handling:** Includes a heavily customized 404 Error page that catches all invalid routes, including missing dynamic workout IDs, and dedicated skeleton loading fallbacks for every API fetch.
 - **Fully Responsive Grid:** The 3x4 workout library grid and two-column detail pages collapse gracefully for seamless mobile, tablet, and desktop viewing.
 
-<h2 style="font-size: 1.5rem; font-weight: 800; color: #a6e22e;">🛠️ Technologies Used</h2>
+<h2 style="font-size: 1.5rem; font-weight: 800;"><font color="#a6e22e">🛠️ Technologies Used</font></h2>
 
 - **Framework:** Next.js (App Router), React, React DOM
 - **Language:** TypeScript
@@ -43,7 +43,7 @@ FitLog is a modern, dark-themed responsive workout tracking application designed
 - **Linting & Compilation:** ESLint, ESLint Config Next, Babel Plugin React Compiler
 - **Type Definitions:** `@types/canvas-confetti`, `@types/node`, `@types/react`, `@types/react-dom`
 
-<h2 style="font-size: 1.5rem; font-weight: 800; color: #a6e22e;">📂 Project Structure</h2>
+<h2 style="font-size: 1.5rem; font-weight: 800;"><font color="#a6e22e">📂 Project Structure</font></h2>
 
 FitLog follows a strict, modular component architecture to maintain clean boundaries between UI elements, layout components, and utility logic.
 
@@ -75,7 +75,7 @@ src/
 │   └── workouts.ts
 ```
 
-<h2 style="font-size: 1.5rem; font-weight: 800; color: #a6e22e;">🚀 Getting Started</h2>
+<h2 style="font-size: 1.5rem; font-weight: 800;"><font color="#a6e22e">🚀 Getting Started</font></h2>
 
 To run this project locally, follow these steps:
 
