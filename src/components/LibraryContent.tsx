@@ -27,7 +27,7 @@ const LibraryContent = ({ workouts }: LibraryContentProps) => {
     <>
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 className="text-3xl font-black uppercase tracking-wider font-sans">
+          <h2 className="text-3xl font-black uppercase tracking-wider">
             THE LIBRARY
           </h2>
           <p className="text-gray-400 text-sm mt-1">

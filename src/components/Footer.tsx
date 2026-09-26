@@ -9,7 +9,7 @@ export const Footer = () => {
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2 group text-white">
           <FaDumbbell className="text-[#a6e22e] text-lg transform -rotate-45" />
-          <span className="font-extrabold tracking-wider uppercase font-mono">
+          <span className="font-oswald font-extrabold tracking-wider uppercase">
             FITLOG
           </span>
         </Link>

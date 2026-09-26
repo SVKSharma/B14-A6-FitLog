@@ -14,7 +14,7 @@ export const Hero = () => {
               WORKOUT LIBRARY
             </span>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-normal leading-snug sm:leading-tight uppercase font-sans">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-normal leading-snug sm:leading-tight uppercase">
               TRAIN WITH INTENT.<br />
               LOG EVERY SET.
             </h1>
